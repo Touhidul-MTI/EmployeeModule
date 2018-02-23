@@ -6,8 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TestController {
 	
-	@GetMapping(value = "/")
+	@GetMapping(value = "/test")
 	public String test() {
-		return "index";
+		return "index_page";
+	}
+	
+	@GetMapping(value = "/test2")
+	public String createEmployee() {
+		return "newEmployeeForm_page";
+	}
+	
+	@GetMapping(value = "/readme")
+	public String readme() {
+		return "readme";
 	}
 }

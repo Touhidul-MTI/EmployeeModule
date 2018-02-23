@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>This is inside WEB-INF/views and I don't wanna use this directory...ding dong..</p>
-
-<pre>
-<code>Muhammad Touhidul Islam</code>
-</pre>
-
+<p>Sorry! I changed the directory to templates. Thank you..</p>
 </body>
 </html>
