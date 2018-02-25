@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="employee")
@@ -37,7 +39,7 @@ public class Employee {
 	//contact information
 	//----------------------
 	@Column(name = "working_address", length = 128, nullable = false)
-	@NotEmpty(message = "Select company.")
+	@NotNull(message = "Select company.")
 	private String workingAddress;
 	
 	@Column(name = "work_mobile", length = 16, nullable = false)
@@ -53,17 +55,17 @@ public class Employee {
 	@Email(message = "Enter a valid email.")
 	private String workEmail;
 	
-	@Column(name = "work_phone", length = 16)
+	@Column(name = "work_phone", length = 16, nullable = true)
 	private String workPhone;
 	
 	//position
 	//----------------------
 	@Column(name = "department", length = 32, nullable = false)
-	@NotEmpty(message = "Select department.")
+	@NotNull(message = "Select department.")
 	private String department;
 	
 	@Column(name = "job_title", length = 64, nullable = false)
-	@NotEmpty(message = "Select job title.")
+	@NotNull(message = "Select job title.")
 	private String jobTitle;
 	
 	@Column(name = "manager", length = 64)
@@ -80,7 +82,7 @@ public class Employee {
 	//-----------------------
 	
 	@Column(name = "nationality", length = 32, nullable = false)
-	@NotEmpty(message = "Select country.")
+	@NotNull(message = "Select country.")
 	private String nationality;
 	
 	@Column(name = "identification_no", length = 32)
@@ -93,7 +95,7 @@ public class Employee {
 	private String bankAccountNumber;
 	
 	@Column(name = "gender", length = 8, nullable = false)
-	@NotEmpty(message = "Select gender.")
+	@NotNull(message = "Select gender.")
 	private String gender;
 	
 	@Column(name = "marital_status", length = 16)
@@ -102,8 +104,10 @@ public class Employee {
 	@Column(name = "home_address", length = 128)
 	private String homeAddress;
 	
+	//@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "date_of_birth", nullable = false)
-	@NotEmpty(message = "Select data of birth.")
+	@NotNull(message = "Select data of birth.")
 	private Date dateOfBirth;
 
 	public Employee() {

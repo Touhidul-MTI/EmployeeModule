@@ -16,16 +16,16 @@ public class Country {
 	private int id;
 	
 	@Column(name = "country_name", length = 32)
-	private String countrytName;
+	private String countryName;
 
 	public Country() {
 		
 	}
 
-	public Country(int id, String countrytName) {
+	public Country(int id, String countryName) {
 		super();
 		this.id = id;
-		this.countrytName = countrytName;
+		this.countryName = countryName;
 	}
 
 	public int getId() {
@@ -36,18 +36,17 @@ public class Country {
 		this.id = id;
 	}
 
-	public String getCountrytName() {
-		return countrytName;
+	public String getCountryName() {
+		return countryName;
 	}
 
-	public void setCountrytName(String countrytName) {
-		this.countrytName = countrytName;
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 
 	@Override
 	public String toString() {
-		return "Country [id=" + id + ", countrytName=" + countrytName + "]";
+		return "Country [id=" + id + ", countryName=" + countryName + "]";
 	}
-	
-	
+
 }

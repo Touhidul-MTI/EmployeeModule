@@ -17,7 +17,7 @@ public class CountryService {
 	public List<Country> getAllCountries() {
 		List<Country> countries = new ArrayList<>();
 		countryRepository.findAll().forEach(countries::add);
-
+		
 		return countries;
 	}
 }

@@ -3,7 +3,10 @@ package com.bjit.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bjit.project.model.Country;
 import com.bjit.project.service.CountryService;
@@ -13,7 +16,9 @@ public class CountryController {
 	@Autowired
 	private CountryService countryService;
 	
-	public List<Country> getAllCountries() {
+	@GetMapping(value="/allcountries", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List<Country> getCountries() {
 		return countryService.getAllCountries();
 	}
 }

@@ -7,7 +7,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${title}</title>
+<title>Employee Module</title>
 
 <!-- css -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,9 @@
 <link rel="stylesheet" href="../css/style_sidebar_category.css">
 
 <script src="../js/jquery.min.js"></script>
-<script src="../js/employee.js"></script>
+<script src="../js/employee_main.js"></script>
+<script src="../js/employee_new_form_initialization.js"></script>
+<script src="../js/employee_edit_form_initialization.js"></script>
 
 </head>
 <body class="custom-body">
@@ -26,8 +28,10 @@
 
 		<div class="row">
 
-			<div class="hidden-xs">
-				<nav class="navbar navbar-inverse"> </nav>
+			<div class="hidden-xs mypadding-bottom-70">
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+				<li><a onclick="showEmployees();" class="navbar-brand">Employees</a></li>
+				</nav>
 			</div>
 
 			<div class="col-md-2 col-sm-3 sidenav">
@@ -43,7 +47,8 @@
 
 					<div class="menu-list">
 						<ul id="menu-content" class="menu-content collapse out">
-							<li><a href="/employees">Employees</a></li>
+							<!-- <li><a href="/employees">Employees</a></li> -->
+							<li><a onclick="showEmployees();">Employees</a></li>
 						</ul>
 					</div>
 				</div>
@@ -51,42 +56,12 @@
 
 			<div class="col-md-10 col-sm-9">
 
-				<div class="row container">
-
-					<div class="pull-left">
-						<a class="btn btn-default mybutton3"
-							href="/employees/createemployee"> <span
-							class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							Create
-						</a>
-					</div>
-					<div class="pull-right">
-						<a>1-22 / 22</a> <a class="d-inline" href="#"><span
-							class="glyphicon glyphicon-chevron-left"></span></a> <a
-							class="d-inline" href="#"><span
-							class="glyphicon glyphicon-chevron-right"></span></a>
-
-
-						<ul class="list-inline">
-							<li><a>1-22 / 22</a></li>
-							<li><a class="d-inline" href="#"><span
-									class="glyphicon glyphicon-chevron-left"></span></a></li>
-							<li><a class="d-inline" href="#"><span
-									class="glyphicon glyphicon-chevron-right"></span></a></li>
-						</ul>
-					</div>
-
-				</div>
-				<!-- end of row -->
 				
 				<div id="container">
-					<div id="dynamic_content">
-					
-					</div>
+					<div id="dynamic_content"></div>
 				</div>
 
 
-				<%-- <jsp:include page="employeeList_partial.jsp" /> --%>
 			</div>
 			<!-- end of parent column -->
 		</div>
