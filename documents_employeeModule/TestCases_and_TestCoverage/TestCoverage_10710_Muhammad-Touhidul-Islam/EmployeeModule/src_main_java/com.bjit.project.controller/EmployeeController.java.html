@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">EmployeeModule (Mar 5, 2018 5:19:49 PM)</a> &gt; <a href="../../index.html" class="el_group">EmployeeModule</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.bjit.project.controller</a> &gt; <span class="el_source">EmployeeController.java</span></div><h1>EmployeeController.java</h1><pre class="source lang-java linenums">package com.bjit.project.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import javax.sound.midi.Soundbank;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.bjit.project.model.Employee;
+import com.bjit.project.service.EmployeeService;
+
+@Controller
+<span class="fc" id="L32">public class EmployeeController {</span>
+	// number of contents in a page
+	private static final int size = 5;
+	// String filePath =
+	// &quot;E:\\BJIT_work\\J2EE\\EmployeeModule\\src\\main\\resources\\static\\employee-photo&quot;;
+<span class="fc" id="L37">	String filePath = &quot;/home/hp/eclipse-workspace/EmployeeModule/src/main/resources/static/employee-photo/&quot;;</span>
+
+<span class="fc" id="L39">	static String createdFileName = &quot;&quot;;</span>
+
+	@Autowired
+	private EmployeeService employeeService;
+
+	@GetMapping(value = { &quot;/&quot;, &quot;/employees&quot; })
+	public String showEmployees() {
+<span class="fc" id="L46">		return &quot;showEmployees_page&quot;;</span>
+	}
+
+	@GetMapping(value = &quot;/employeelist-page&quot;)
+	public String getEmployeeListPage() {
+<span class="fc" id="L51">		return &quot;showEmployees_partial_page&quot;;</span>
+	}
+
+	@PostMapping(value = &quot;/allemployees/{page}&quot;, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List&lt;Employee&gt; getEmployees(@PathVariable int page) {
+<span class="fc" id="L57">		return employeeService.getAllEmployees(page, size);</span>
+	}
+
+	@GetMapping(value = &quot;/employeedetals-page&quot;)
+	public String getEmployeeDetailsPage() {
+<span class="fc" id="L62">		return &quot;showDetails/showEmployeeDetails_partial_page&quot;;</span>
+	}
+
+	@PostMapping(value = &quot;/employees/employeedetails/{employeeId}&quot;, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public Employee getEmployeeDetails(@PathVariable int employeeId) {
+<span class="fc" id="L68">		return employeeService.getEmployee(employeeId);</span>
+	}
+
+	@GetMapping(value = &quot;/newemployee-page&quot;)
+	public String getNewEmployeePage() {
+<span class="fc" id="L73">		return &quot;new/newEmployeeForm_partial_page&quot;;</span>
+	}
+
+	@GetMapping(value = &quot;/allemployeenames&quot;, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public List&lt;String&gt; getEmployeeNames() {
+<span class="fc" id="L79">		return employeeService.getAllEmployeeNames();</span>
+	}
+
+	@GetMapping(value = &quot;/editemployee-page&quot;)
+	public String getEditEmployeePage() {
+<span class="fc" id="L84">		return &quot;edit/editEmployeeForm_partial_page&quot;;</span>
+	}
+
+	@PostMapping(value = &quot;/employees/createemployee&quot;, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public EmployeeJsonResponse createEmployee(@ModelAttribute @Valid Employee employee, BindingResult result) {
+
+<span class="fc" id="L91">		EmployeeJsonResponse respone = new EmployeeJsonResponse();</span>
+
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">		if (result.hasErrors()) {</span>
+			// Get error message
+<span class="fc" id="L95">			Map&lt;String, String&gt; errors = result.getFieldErrors().stream()</span>
+<span class="fc" id="L96">					.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));</span>
+
+<span class="fc" id="L98">			respone.setValidated(false);</span>
+<span class="fc" id="L99">			respone.setErrorMessages(errors);</span>
+<span class="fc" id="L100">		} else {</span>
+
+			// employee is being updated, need to remove previous profile picture
+<span class="nc" id="L103">			Employee existEmployee = employeeService.getEmployee(employee.getId());</span>
+
+<span class="nc bnc" id="L105" title="All 2 branches missed.">			if (existEmployee != null) {</span>
+
+				// new picture created
+<span class="nc bnc" id="L108" title="All 2 branches missed.">				if (!createdFileName.equals(&quot;&quot;)) {</span>
+
+					// remove previous profile picture and
+<span class="nc bnc" id="L111" title="All 2 branches missed.">					if (existEmployee.getProfilePicture() != null) {</span>
+
+<span class="nc" id="L113">						removePreviousProfilePicture(existEmployee.getProfilePicture());</span>
+					}
+<span class="nc" id="L115">				} else {// no new picture created</span>
+
+					// previous profile picture to updated employee
+<span class="nc bnc" id="L118" title="All 2 branches missed.">					if (existEmployee.getProfilePicture() != null) {</span>
+
+<span class="nc" id="L120">						employee.setProfilePicture(existEmployee.getProfilePicture());</span>
+					}
+				}
+
+			}
+			// new profile picture to updated employee
+<span class="nc bnc" id="L126" title="All 2 branches missed.">			if (!createdFileName.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L127">				employee.setProfilePicture(createdFileName);</span>
+<span class="nc" id="L128">				createdFileName = &quot;&quot;;</span>
+			}
+
+<span class="nc" id="L131">			employeeService.createEmployee(employee);</span>
+
+<span class="nc" id="L133">			respone.setValidated(true);</span>
+		}
+
+<span class="fc" id="L136">		return respone;</span>
+	}
+
+	@PostMapping(value = &quot;/create-profile-picture&quot;, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public void createProfilePicture(@RequestParam(&quot;profilePhoto&quot;) MultipartFile profilePhoto) {
+
+<span class="nc" id="L143">		String fileName = createCustomFileName(profilePhoto.getOriginalFilename());</span>
+<span class="nc" id="L144">		File path = new File(filePath);</span>
+
+<span class="nc bnc" id="L146" title="All 2 branches missed.">		if (!path.exists()) {</span>
+<span class="nc" id="L147">			path.mkdirs();</span>
+		}
+		try {
+<span class="nc" id="L150">			Files.copy(profilePhoto.getInputStream(), Paths.get(filePath, fileName));</span>
+<span class="nc" id="L151">		} catch (IOException e) {</span>
+<span class="nc" id="L152">			e.printStackTrace();</span>
+		}
+
+<span class="nc" id="L155">		createdFileName = fileName;</span>
+		// System.out.println(&quot;profile picture created: &quot; + fileName);
+<span class="nc" id="L157">	}</span>
+
+	public String createCustomFileName(String fileName_old) {
+<span class="fc" id="L160">		Random rand = new Random();</span>
+<span class="fc" id="L161">		int randNum = rand.nextInt(10000) + 1;</span>
+
+<span class="fc" id="L163">		String[] fileName_array = fileName_old.split(&quot;\\.&quot;);</span>
+<span class="fc" id="L164">		String fileName_postFix = fileName_array[fileName_array.length - 1];</span>
+
+		// first part of &quot;employee&quot; + random number + image type
+<span class="fc" id="L167">		String fileName_new = &quot;employee&quot; + randNum + &quot;.&quot; + fileName_postFix;</span>
+
+<span class="fc" id="L169">		return fileName_new;</span>
+	}
+
+	public void removePreviousProfilePicture(String existingProfilePicture) {
+		// File fileToDelete = new File(filePath + &quot;\\&quot; + existingProfilePicture);//for
+		// windows
+<span class="nc" id="L175">		File fileToDelete = new File(filePath + existingProfilePicture);// for ubuntu</span>
+
+<span class="nc bnc" id="L177" title="All 2 branches missed.">		if (fileToDelete.exists()) {</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">			if (fileToDelete.delete()) {</span>
+<span class="nc" id="L179">				System.out.println(existingProfilePicture + &quot;, Image deleted successfully&quot;);</span>
+<span class="nc" id="L180">			} else {</span>
+<span class="nc" id="L181">				System.out.println(&quot;Fail to delete image: &quot; + existingProfilePicture);</span>
+			}
+		}
+<span class="nc" id="L184">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>EmployeeModule (Mar 5, 2018 5:19:49 PM)</div></body></html>

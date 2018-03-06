@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Employee.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">EmployeeModule (Mar 5, 2018 5:19:49 PM)</a> &gt; <a href="../../index.html" class="el_group">EmployeeModule</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.bjit.project.model</a> &gt; <span class="el_source">Employee.java</span></div><h1>Employee.java</h1><pre class="source lang-java linenums">package com.bjit.project.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name=&quot;employee&quot;)
+public class Employee {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name=&quot;employee_id&quot;)
+	private int id;
+	
+	//----------------------
+	//public information
+	//----------------------
+	
+	@Column(name = &quot;employee_name&quot;, length = 64, nullable = false)
+	@NotEmpty(message = &quot;Enter full name.&quot;)
+	private String employeeName;
+	
+	@Column(name = &quot;work_type&quot;, length = 32)
+	private String workType;
+	
+	@Column(name = &quot;profile_picture&quot;, length = 128)
+	private String profilePicture;
+	
+	//contact information
+	//----------------------
+	@Column(name = &quot;working_address&quot;, length = 128, nullable = false)
+	@NotNull(message = &quot;Select company.&quot;)
+	private String workingAddress;
+	
+	@Column(name = &quot;work_mobile&quot;, length = 16, nullable = false)
+	@NotEmpty(message = &quot;Enter mobile no.&quot;)
+	private String workMobile;
+	
+	@Column(name = &quot;work_location&quot;, length = 64, nullable = false)
+	@NotEmpty(message = &quot;Enter work location.&quot;)
+	private String workLocation;
+	
+	@Column(name = &quot;work_email&quot;, length = 64, nullable = false)
+	@NotEmpty(message = &quot;Enter email.&quot;)
+	@Email(message = &quot;Enter a valid email.&quot;)
+	private String workEmail;
+	
+	@Column(name = &quot;work_phone&quot;, length = 16, nullable = true)
+	private String workPhone;
+	
+	//position
+	//----------------------
+	@Column(name = &quot;department&quot;, length = 32, nullable = false)
+	@NotNull(message = &quot;Select department.&quot;)
+	private String department;
+	
+	@Column(name = &quot;job_title&quot;, length = 64, nullable = false)
+	@NotNull(message = &quot;Select job title.&quot;)
+	private String jobTitle;
+	
+	@Column(name = &quot;manager&quot;, length = 64)
+	private String manager;
+	
+	@Column(name = &quot;coach&quot;, length = 64)
+	private String coach;
+	
+	@Column(name = &quot;other_information&quot;, length = 64)
+	private String otherInformation;
+	
+	//-----------------------
+	//personal information
+	//-----------------------
+	
+	@Column(name = &quot;nationality&quot;, length = 32, nullable = false)
+	@NotNull(message = &quot;Select country.&quot;)
+	private String nationality;
+	
+	@Column(name = &quot;identification_no&quot;, length = 32)
+	private String identificationNo;
+	
+	@Column(name = &quot;passport_no&quot;, length = 32)
+	private String passportNo;
+	
+	@Column(name = &quot;bank_account_number&quot;, length = 32)
+	private String bankAccountNumber;
+	
+	@Column(name = &quot;gender&quot;, length = 8, nullable = false)
+	@NotNull(message = &quot;Select gender.&quot;)
+	private String gender;
+	
+	@Column(name = &quot;marital_status&quot;, length = 16)
+	private String maritalStatus;
+	
+	@Column(name = &quot;home_address&quot;, length = 128)
+	private String homeAddress;
+	
+	//@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+	@Column(name = &quot;date_of_birth&quot;, nullable = false)
+	@NotNull(message = &quot;Select data of birth.&quot;)
+	private Date dateOfBirth;
+
+<span class="fc" id="L113">	public Employee() {</span>
+		
+<span class="fc" id="L115">	}</span>
+
+	public Employee(int id, String employeeName, String workType, String profilePicture, String workingAddress,
+			String workMobile, String workLocation, String workEmail, String workPhone, String department,
+			String jobTitle, String manager, String coach, String otherInformation, String nationality,
+			String identificationNo, String passportNo, String bankAccountNumber, String gender, String maritalStatus,
+			String homeAddress, Date dateOfBirth) {
+<span class="nc" id="L122">		super();</span>
+<span class="nc" id="L123">		this.id = id;</span>
+<span class="nc" id="L124">		this.employeeName = employeeName;</span>
+<span class="nc" id="L125">		this.workType = workType;</span>
+<span class="nc" id="L126">		this.profilePicture = profilePicture;</span>
+<span class="nc" id="L127">		this.workingAddress = workingAddress;</span>
+<span class="nc" id="L128">		this.workMobile = workMobile;</span>
+<span class="nc" id="L129">		this.workLocation = workLocation;</span>
+<span class="nc" id="L130">		this.workEmail = workEmail;</span>
+<span class="nc" id="L131">		this.workPhone = workPhone;</span>
+<span class="nc" id="L132">		this.department = department;</span>
+<span class="nc" id="L133">		this.jobTitle = jobTitle;</span>
+<span class="nc" id="L134">		this.manager = manager;</span>
+<span class="nc" id="L135">		this.coach = coach;</span>
+<span class="nc" id="L136">		this.otherInformation = otherInformation;</span>
+<span class="nc" id="L137">		this.nationality = nationality;</span>
+<span class="nc" id="L138">		this.identificationNo = identificationNo;</span>
+<span class="nc" id="L139">		this.passportNo = passportNo;</span>
+<span class="nc" id="L140">		this.bankAccountNumber = bankAccountNumber;</span>
+<span class="nc" id="L141">		this.gender = gender;</span>
+<span class="nc" id="L142">		this.maritalStatus = maritalStatus;</span>
+<span class="nc" id="L143">		this.homeAddress = homeAddress;</span>
+<span class="nc" id="L144">		this.dateOfBirth = dateOfBirth;</span>
+<span class="nc" id="L145">	}</span>
+
+	public int getId() {
+<span class="fc" id="L148">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="fc" id="L152">		this.id = id;</span>
+<span class="fc" id="L153">	}</span>
+
+	public String getEmployeeName() {
+<span class="fc" id="L156">		return employeeName;</span>
+	}
+
+	public void setEmployeeName(String employeeName) {
+<span class="fc" id="L160">		this.employeeName = employeeName;</span>
+<span class="fc" id="L161">	}</span>
+
+	public String getWorkType() {
+<span class="fc" id="L164">		return workType;</span>
+	}
+
+	public void setWorkType(String workType) {
+<span class="fc" id="L168">		this.workType = workType;</span>
+<span class="fc" id="L169">	}</span>
+
+	public String getProfilePicture() {
+<span class="fc" id="L172">		return profilePicture;</span>
+	}
+
+	public void setProfilePicture(String profilePicture) {
+<span class="nc" id="L176">		this.profilePicture = profilePicture;</span>
+<span class="nc" id="L177">	}</span>
+
+	public String getWorkingAddress() {
+<span class="fc" id="L180">		return workingAddress;</span>
+	}
+
+	public void setWorkingAddress(String workingAddress) {
+<span class="fc" id="L184">		this.workingAddress = workingAddress;</span>
+<span class="fc" id="L185">	}</span>
+
+	public String getWorkMobile() {
+<span class="fc" id="L188">		return workMobile;</span>
+	}
+
+	public void setWorkMobile(String workMobile) {
+<span class="fc" id="L192">		this.workMobile = workMobile;</span>
+<span class="fc" id="L193">	}</span>
+
+	public String getWorkLocation() {
+<span class="fc" id="L196">		return workLocation;</span>
+	}
+
+	public void setWorkLocation(String workLocation) {
+<span class="fc" id="L200">		this.workLocation = workLocation;</span>
+<span class="fc" id="L201">	}</span>
+
+	public String getWorkEmail() {
+<span class="fc" id="L204">		return workEmail;</span>
+	}
+
+	public void setWorkEmail(String workEmail) {
+<span class="fc" id="L208">		this.workEmail = workEmail;</span>
+<span class="fc" id="L209">	}</span>
+
+	public String getWorkPhone() {
+<span class="fc" id="L212">		return workPhone;</span>
+	}
+
+	public void setWorkPhone(String workPhone) {
+<span class="fc" id="L216">		this.workPhone = workPhone;</span>
+<span class="fc" id="L217">	}</span>
+
+	public String getDepartment() {
+<span class="fc" id="L220">		return department;</span>
+	}
+
+	public void setDepartment(String department) {
+<span class="fc" id="L224">		this.department = department;</span>
+<span class="fc" id="L225">	}</span>
+
+	public String getJobTitle() {
+<span class="fc" id="L228">		return jobTitle;</span>
+	}
+
+	public void setJobTitle(String jobTitle) {
+<span class="fc" id="L232">		this.jobTitle = jobTitle;</span>
+<span class="fc" id="L233">	}</span>
+
+	public String getManager() {
+<span class="fc" id="L236">		return manager;</span>
+	}
+
+	public void setManager(String manager) {
+<span class="nc" id="L240">		this.manager = manager;</span>
+<span class="nc" id="L241">	}</span>
+
+	public String getCoach() {
+<span class="fc" id="L244">		return coach;</span>
+	}
+
+	public void setCoach(String coach) {
+<span class="nc" id="L248">		this.coach = coach;</span>
+<span class="nc" id="L249">	}</span>
+
+	public String getOtherInformation() {
+<span class="fc" id="L252">		return otherInformation;</span>
+	}
+
+	public void setOtherInformation(String otherInformation) {
+<span class="nc" id="L256">		this.otherInformation = otherInformation;</span>
+<span class="nc" id="L257">	}</span>
+
+	public String getNationality() {
+<span class="fc" id="L260">		return nationality;</span>
+	}
+
+	public void setNationality(String nationality) {
+<span class="fc" id="L264">		this.nationality = nationality;</span>
+<span class="fc" id="L265">	}</span>
+
+	public String getIdentificationNo() {
+<span class="fc" id="L268">		return identificationNo;</span>
+	}
+
+	public void setIdentificationNo(String identificationNo) {
+<span class="nc" id="L272">		this.identificationNo = identificationNo;</span>
+<span class="nc" id="L273">	}</span>
+
+	public String getPassportNo() {
+<span class="fc" id="L276">		return passportNo;</span>
+	}
+
+	public void setPassportNo(String passportNo) {
+<span class="nc" id="L280">		this.passportNo = passportNo;</span>
+<span class="nc" id="L281">	}</span>
+
+	public String getBankAccountNumber() {
+<span class="fc" id="L284">		return bankAccountNumber;</span>
+	}
+
+	public void setBankAccountNumber(String bankAccountNumber) {
+<span class="nc" id="L288">		this.bankAccountNumber = bankAccountNumber;</span>
+<span class="nc" id="L289">	}</span>
+
+	public String getGender() {
+<span class="fc" id="L292">		return gender;</span>
+	}
+
+	public void setGender(String gender) {
+<span class="nc" id="L296">		this.gender = gender;</span>
+<span class="nc" id="L297">	}</span>
+
+	public String getMaritalStatus() {
+<span class="fc" id="L300">		return maritalStatus;</span>
+	}
+
+	public void setMaritalStatus(String maritalStatus) {
+<span class="nc" id="L304">		this.maritalStatus = maritalStatus;</span>
+<span class="nc" id="L305">	}</span>
+
+	public String getHomeAddress() {
+<span class="fc" id="L308">		return homeAddress;</span>
+	}
+
+	public void setHomeAddress(String homeAddress) {
+<span class="nc" id="L312">		this.homeAddress = homeAddress;</span>
+<span class="nc" id="L313">	}</span>
+
+	public Date getDateOfBirth() {
+<span class="fc" id="L316">		return dateOfBirth;</span>
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+<span class="fc" id="L320">		this.dateOfBirth = dateOfBirth;</span>
+<span class="fc" id="L321">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L325">		return &quot;Employee [id=&quot; + id + &quot;, employeeName=&quot; + employeeName + &quot;, workType=&quot; + workType + &quot;, profilePicture=&quot;</span>
+<span class="fc" id="L326">				+ profilePicture + &quot;, workingAddress=&quot; + workingAddress + &quot;, workMobile=&quot; + workMobile</span>
+<span class="fc" id="L327">				+ &quot;, workLocation=&quot; + workLocation + &quot;, workEmail=&quot; + workEmail + &quot;, workPhone=&quot; + workPhone</span>
+<span class="fc" id="L328">				+ &quot;, department=&quot; + department + &quot;, jobTitle=&quot; + jobTitle + &quot;, manager=&quot; + manager + &quot;, coach=&quot; + coach</span>
+<span class="fc" id="L329">				+ &quot;, otherInformation=&quot; + otherInformation + &quot;, nationality=&quot; + nationality + &quot;, identificationNo=&quot;</span>
+<span class="fc" id="L330">				+ identificationNo + &quot;, passportNo=&quot; + passportNo + &quot;, bankAccountNumber=&quot; + bankAccountNumber</span>
+<span class="fc" id="L331">				+ &quot;, gender=&quot; + gender + &quot;, maritalStatus=&quot; + maritalStatus + &quot;, homeAddress=&quot; + homeAddress</span>
+<span class="fc" id="L332">				+ &quot;, dateOfBirth=&quot; + dateOfBirth + &quot;]&quot;;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>EmployeeModule (Mar 5, 2018 5:19:49 PM)</div></body></html>

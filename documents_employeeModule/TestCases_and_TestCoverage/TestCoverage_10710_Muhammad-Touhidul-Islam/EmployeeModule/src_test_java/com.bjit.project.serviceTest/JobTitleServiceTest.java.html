@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>JobTitleServiceTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">EmployeeModule (Mar 5, 2018 5:19:49 PM)</a> &gt; <a href="../../index.html" class="el_group">EmployeeModule</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.bjit.project.serviceTest</a> &gt; <span class="el_source">JobTitleServiceTest.java</span></div><h1>JobTitleServiceTest.java</h1><pre class="source lang-java linenums">package com.bjit.project.serviceTest;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.bjit.project.model.JobTitle;
+import com.bjit.project.repository.JobTitleRepository;
+import com.bjit.project.service.JobTitleService;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+<span class="fc" id="L24">public class JobTitleServiceTest {</span>
+
+<span class="fc" id="L26">	private static List&lt;JobTitle&gt; jobTitleList = new ArrayList&lt;&gt;();</span>
+	
+	@MockBean
+	private JobTitleRepository jobTitleRepository;
+	@Autowired
+	private JobTitleService jobTitleService;
+
+	@BeforeClass
+	public static void initJobTitles() {
+<span class="fc" id="L35">		JobTitle jobTitle1 = new JobTitle();</span>
+<span class="fc" id="L36">		jobTitle1.setId(1);</span>
+<span class="fc" id="L37">		jobTitle1.setJobTitleName(&quot;SE&quot;);</span>
+		
+<span class="fc" id="L39">		JobTitle jobTitle2 = new JobTitle();</span>
+<span class="fc" id="L40">		jobTitle2.setId(2);</span>
+<span class="fc" id="L41">		jobTitle2.setJobTitleName(&quot;CEO&quot;);</span>
+
+<span class="fc" id="L43">		jobTitleList.add(jobTitle1);</span>
+<span class="fc" id="L44">		jobTitleList.add(jobTitle2);</span>
+<span class="fc" id="L45">	}</span>
+	
+	@Test
+	public void testGetAllJobTitles_shouldPrintOk() {
+<span class="fc" id="L49">		int index = 0;</span>
+<span class="fc" id="L50">		when(jobTitleService.getAllJobTitles()).thenReturn(jobTitleList);</span>
+<span class="fc" id="L51">		List&lt;JobTitle&gt; list = new ArrayList&lt;&gt;();</span>
+		
+<span class="fc" id="L53">		jobTitleRepository.findAll().forEach(list::add);</span>
+<span class="fc" id="L54">		assertThat(list.get(index).getJobTitleName(), equalTo(&quot;SE&quot;));</span>
+<span class="fc" id="L55">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>EmployeeModule (Mar 5, 2018 5:19:49 PM)</div></body></html>

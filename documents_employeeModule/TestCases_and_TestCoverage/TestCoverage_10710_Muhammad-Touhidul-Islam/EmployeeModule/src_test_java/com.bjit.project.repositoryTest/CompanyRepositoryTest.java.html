@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CompanyRepositoryTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">EmployeeModule (Mar 5, 2018 5:19:49 PM)</a> &gt; <a href="../../index.html" class="el_group">EmployeeModule</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.bjit.project.repositoryTest</a> &gt; <span class="el_source">CompanyRepositoryTest.java</span></div><h1>CompanyRepositoryTest.java</h1><pre class="source lang-java linenums">package com.bjit.project.repositoryTest;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.bjit.project.model.Company;
+import com.bjit.project.repository.CompanyRepository;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+<span class="fc" id="L20">public class CompanyRepositoryTest {</span>
+	@Autowired
+	private CompanyRepository companyRepository;
+
+	@Test
+	public void shouldGetAllCompanies() {
+<span class="fc" id="L26">		int index = 0;</span>
+<span class="fc" id="L27">		List&lt;Company&gt; companyList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L28">		companyRepository.findAll().forEach(companyList::add);</span>
+
+<span class="fc" id="L30">		assertThat(companyList.get(index).getCompanyName(), equalTo(&quot;BJIT&quot;));</span>
+<span class="fc" id="L31">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>EmployeeModule (Mar 5, 2018 5:19:49 PM)</div></body></html>

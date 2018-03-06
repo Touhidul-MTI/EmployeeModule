@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CountryControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">EmployeeModule (Mar 5, 2018 5:19:49 PM)</a> &gt; <a href="../../index.html" class="el_group">EmployeeModule</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.bjit.project.controllerTest</a> &gt; <span class="el_source">CountryControllerTest.java</span></div><h1>CountryControllerTest.java</h1><pre class="source lang-java linenums">package com.bjit.project.controllerTest;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.bjit.project.controller.CountryController;
+import com.bjit.project.model.Country;
+import com.bjit.project.service.CountryService;
+
+@RunWith(MockitoJUnitRunner.class)
+<span class="fc" id="L26">public class CountryControllerTest {</span>
+
+	@Mock
+	CountryService countryService;
+
+	MockMvc mockMvc;
+
+
+	@InjectMocks
+	CountryController countryController;
+	
+<span class="fc" id="L37">	private static List&lt;Country&gt; countryList = new ArrayList&lt;&gt;();</span>
+	
+	@BeforeClass
+	public static void initCountries() {
+<span class="fc" id="L41">		Country country1 = new Country();</span>
+<span class="fc" id="L42">		country1.setId(1);</span>
+<span class="fc" id="L43">		country1.setCountryName(&quot;BD&quot;);</span>
+		
+<span class="fc" id="L45">		Country country2 = new Country();</span>
+<span class="fc" id="L46">		country2.setId(2);</span>
+<span class="fc" id="L47">		country2.setCountryName(&quot;UK&quot;);</span>
+
+<span class="fc" id="L49">		countryList.add(country1);</span>
+<span class="fc" id="L50">		countryList.add(country2);</span>
+<span class="fc" id="L51">	}</span>
+	
+	@Before
+	public void setUp() {
+<span class="fc" id="L55">		mockMvc = MockMvcBuilders.standaloneSetup(countryController).build();</span>
+<span class="fc" id="L56">	}</span>
+	
+	@Test
+	public void testGetCountrys_shouldPrintCountries() throws Exception {
+<span class="fc" id="L60">		Mockito.when(countryService.getAllCountries()).thenReturn(countryList);</span>
+		
+<span class="fc" id="L62">		mockMvc.perform(post(&quot;/allcountries&quot;).accept(MediaType.APPLICATION_JSON))</span>
+<span class="fc" id="L63">				.andDo(MockMvcResultHandlers.print());</span>
+<span class="fc" id="L64">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>EmployeeModule (Mar 5, 2018 5:19:49 PM)</div></body></html>

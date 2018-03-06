@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeServiceTestPart2.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">EmployeeModule (Mar 5, 2018 5:19:49 PM)</a> &gt; <a href="../../index.html" class="el_group">EmployeeModule</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.bjit.project.serviceTest</a> &gt; <span class="el_source">EmployeeServiceTestPart2.java</span></div><h1>EmployeeServiceTestPart2.java</h1><pre class="source lang-java linenums">package com.bjit.project.serviceTest;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
+import com.bjit.project.model.Employee;
+import com.bjit.project.repository.EmployeeRepository;
+import com.bjit.project.service.EmployeeService;
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+<span class="fc" id="L27">public class EmployeeServiceTestPart2 {</span>
+	
+	@MockBean
+	private EmployeeRepository employeeRepository;
+	@Autowired
+	private EmployeeService employeeService;
+	
+	private static Employee employee;
+	
+<span class="fc" id="L36">	private static List&lt;Employee&gt; employeeList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L37">	private static List&lt;String&gt; employeeNames = new ArrayList&lt;&gt;();</span>
+	
+	@BeforeClass
+	public static void initEmployeeList() {
+<span class="fc" id="L41">		Employee employee1 = new Employee();</span>
+<span class="fc" id="L42">		employee1.setId(1);</span>
+<span class="fc" id="L43">		employee1.setEmployeeName(&quot;Touhid&quot;);</span>
+<span class="fc" id="L44">		employee1.setWorkEmail(&quot;t@t.com&quot;);</span>
+<span class="fc" id="L45">		employee1.setWorkingAddress(&quot;BJIT&quot;);</span>
+<span class="fc" id="L46">		employee1.setWorkLocation(&quot;Dhaka&quot;);</span>
+<span class="fc" id="L47">		employee1.setWorkMobile(&quot;1231&quot;);</span>
+<span class="fc" id="L48">		employee1.setWorkPhone(&quot;2132&quot;);</span>
+<span class="fc" id="L49">		employee1.setWorkType(&quot;Part Time&quot;);</span>
+<span class="fc" id="L50">		employee1.setDepartment(&quot;Sales&quot;);</span>
+<span class="fc" id="L51">		employee1.setJobTitle(&quot;Trainee&quot;);</span>
+<span class="fc" id="L52">		employee1.setNationality(&quot;Bangladesh&quot;);</span>
+<span class="fc" id="L53">		Date date = new Date();</span>
+<span class="fc" id="L54">		employee1.setDateOfBirth(date);</span>
+		
+<span class="fc" id="L56">		Employee employee2 = new Employee();</span>
+<span class="fc" id="L57">		employee2.setId(2);</span>
+<span class="fc" id="L58">		employee2.setEmployeeName(&quot;Imti&quot;);</span>
+<span class="fc" id="L59">		employee2.setWorkEmail(&quot;t@t.com&quot;);</span>
+<span class="fc" id="L60">		employee2.setWorkingAddress(&quot;BJIT&quot;);</span>
+<span class="fc" id="L61">		employee2.setWorkLocation(&quot;Dhaka&quot;);</span>
+<span class="fc" id="L62">		employee2.setWorkMobile(&quot;1231&quot;);</span>
+<span class="fc" id="L63">		employee2.setWorkPhone(&quot;2132&quot;);</span>
+<span class="fc" id="L64">		employee2.setWorkType(&quot;Part Time&quot;);</span>
+<span class="fc" id="L65">		employee2.setDepartment(&quot;Sales&quot;);</span>
+<span class="fc" id="L66">		employee2.setJobTitle(&quot;Trainee&quot;);</span>
+<span class="fc" id="L67">		employee2.setNationality(&quot;Bangladesh&quot;);</span>
+<span class="fc" id="L68">		Date date2 = new Date();</span>
+<span class="fc" id="L69">		employee2.setDateOfBirth(date2);</span>
+
+<span class="fc" id="L71">		employeeList.add(employee1);</span>
+<span class="fc" id="L72">		employeeList.add(employee2);</span>
+		
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		for (Employee em : employeeList) {</span>
+<span class="fc" id="L75">			employeeNames.add(em.getEmployeeName());</span>
+		}
+<span class="fc" id="L77">	}</span>
+		
+	@Test
+	public void testGetAllEmployeeNames_shouldPrintOk() {
+<span class="fc" id="L81">		int index = 0;</span>
+<span class="fc" id="L82">		when(employeeService.getAllEmployeeNames()).thenReturn(employeeNames);</span>
+<span class="fc" id="L83">		List&lt;String&gt; names = new ArrayList&lt;&gt;();</span>
+		
+<span class="fc" id="L85">		employeeRepository.findAllNames().forEach(names::add);</span>
+<span class="fc" id="L86">		assertThat(names.get(index), equalTo(&quot;Touhid&quot;));</span>
+<span class="fc" id="L87">	}</span>
+	
+	@Test
+	public void testGetEmployee_shouldPrintOk() {
+<span class="fc" id="L91">		int index = 0, id = 1;</span>
+<span class="fc" id="L92">		when(employeeService.getEmployee(id)).thenReturn(employeeList.get(index));</span>
+<span class="fc" id="L93">		Employee employee = employeeRepository.findOne(id);</span>
+<span class="fc" id="L94">		assertThat(employee.getId(), equalTo(id));</span>
+<span class="fc" id="L95">	}</span>
+	
+	@Before
+	public void createMockEmployee() {
+<span class="fc" id="L99">		Employee employee3 = new Employee();</span>
+<span class="fc" id="L100">		employee3.setEmployeeName(&quot;Riyad&quot;);</span>
+<span class="fc" id="L101">		employee3.setWorkEmail(&quot;t2@t.com&quot;);</span>
+<span class="fc" id="L102">		employee3.setWorkingAddress(&quot;BJIT2&quot;);</span>
+<span class="fc" id="L103">		employee3.setWorkLocation(&quot;Dhaka2&quot;);</span>
+<span class="fc" id="L104">		employee3.setWorkMobile(&quot;12312&quot;);</span>
+<span class="fc" id="L105">		employee3.setWorkPhone(&quot;342&quot;);</span>
+<span class="fc" id="L106">		employee3.setWorkType(&quot;Full Time&quot;);</span>
+<span class="fc" id="L107">		employee3.setDepartment(&quot;Sales&quot;);</span>
+<span class="fc" id="L108">		employee3.setJobTitle(&quot;Trainee&quot;);</span>
+<span class="fc" id="L109">		employee3.setNationality(&quot;Bangladesh&quot;);</span>
+<span class="fc" id="L110">		Date date3 = new Date();</span>
+<span class="fc" id="L111">		employee3.setDateOfBirth(date3);</span>
+		
+<span class="fc" id="L113">		employee = employee3;</span>
+<span class="fc" id="L114">	}</span>
+	
+	@Test
+	public void testCreateEmployee_shouldPrintOk() {
+<span class="fc" id="L118">		employeeService.createEmployee(employee);</span>
+<span class="fc" id="L119">		employeeRepository.save(employee);</span>
+<span class="fc" id="L120">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>EmployeeModule (Mar 5, 2018 5:19:49 PM)</div></body></html>
