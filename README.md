@@ -8,4 +8,6 @@ Using Spring boot, Spring data JPA, JSP, REST API, MySQL, Bootstrap.
 - Test cases
 - Test coverage (Unit test, total project coverage: 82%)
 
-![image](https://github.com/Touhidul-MTI/EmployeeModule/blob/master/src/main/resources/static/employee-photo/employee6268.jpg)
+#####Screenshots
+######Employee list
+![Employee-list](https://github.com/Touhidul-MTI/EmployeeModule/blob/master/documents_employeeModule/screenshots/employee-list.png)
